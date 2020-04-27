@@ -26,7 +26,7 @@ SECRET_KEY = '!bvt-!&^zj-xqpdu$9xu#8*^fximunwhv@!4z1pd6+l-e381!#'
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+
 
 # Application definition
 
@@ -134,6 +134,7 @@ DATETIME_FORMAT = 'Y-m-d'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
