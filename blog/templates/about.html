@@ -1,0 +1,145 @@
+{% extends 'layout/base.html' %}
+{% load custom_tag %}
+{% block title %}关于 | {% endblock %}
+{% block banner %}
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+        {% include 'layout/banner.html' %}
+    </div>
+</div>
+{% endblock %}
+{% block contents  %}
+<main class="content">
+    <div id="aboutme" class="container about-container">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
+
+                        <div class="statis">
+                            <span class="count"><a href="{% url 'index' %}">{{ articles | length }}</a></span>
+                            <span class="name">文章</span>
+                        </div>
+
+
+                        <div class="statis">
+                            <span class="count"><a href="{% url 'category_tag' %}">{{ categories | length }}</a></span>
+                            <span class="name">分类</span>
+                        </div>
+
+
+                        <div class="statis">
+                            <span class="count"><a href="{% url 'category_tag' %}">{{ tags | length }}</a></span>
+                            <span class="name">标签</span>
+                        </div>
+
+
+                    </div>
+                    <div class="col s12 m12 l4">
+                        <div class="profile center-align">
+                            <div class="avatar">
+                                <img src="{{ about.avatar }}" alt="{{SITE_NAME}}"
+                                     class="circle responsive-img avatar-img">
+                            </div>
+                            <div class="author">
+                                <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
+
+                                    <div class="statis">
+                                        <span class="count"><a href="{% url 'index' %}">>{{ articles | length }}</a></span>
+                                        <span class="name">文章</span>
+                                    </div>
+
+
+                                    <div class="statis">
+                                        <span class="count"><a href="{% url 'category_tag' %}">{{ categories | length }}</a></span>
+                                        <span class="name">分类</span>
+                                    </div>
+
+
+                                    <div class="statis">
+                                        <span class="count"><a href="{% url 'category_tag' %}">{{ tags |length }}</a></span>
+                                        <span class="name">标签</span>
+                                    </div>
+
+
+                                </div>
+                                <div class="title">{{SITE_NAME}}</div>
+                                <div class="career">{{about.career}}</div>
+                                <div class="social-link hide-on-large-only" data-aos="zoom-in-left">
+
+                                    {% for a in social %}
+                                    <a href="{{ a.social_url }}" class="tooltipped" target="_blank"
+                                       data-tooltip="{{a.social_des}}:{{ a.social_url }}" data-position="top" data-delay="50">
+                                        <i class="{{ a.social_icon }}"></i>
+                                    </a>
+                                    {% endfor %}
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 hide-on-med-and-down" data-aos="zoom-in-left">
+                        <div class="social-link">
+
+                                    {% for a in social %}
+                                    <a href="{{ a.social_url }}" class="tooltipped" target="_blank"
+                                       data-tooltip="{{a.social_des}}:{{ a.social_url }}" data-position="top" data-delay="50">
+                                        <i class="{{ a.social_icon }}"></i>
+                                    </a>
+                                    {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="introduction center-align" data-aos="fade-up">
+                    {{ about.introduction }}
+                </div>
+
+                <style type="text/css">
+                    #posts-chart,
+                    #categories-chart,
+                    #tags-chart {
+                        width: 100%;
+                        height: 300px;
+                        margin: 0.5rem auto;
+                        padding: 0.5rem;
+                    }
+                </style>
+            <style>
+                .background-1{background: linear-gradient(to right, #FF0066 0%, #FF00CC 100%);}
+                .background-2{background: linear-gradient(to right, #9900FF 0%, #CC66FF 100%);}
+                .background-3{background: linear-gradient(to right, #2196F3 0%, #42A5F5 100%);}
+                .background-4{background: linear-gradient(to right, #00BCD4 0%, #80DEEA 100%);}
+                .background-5{background: linear-gradient(to right, #4CAF50 0%, #81C784 100%);}
+                .background-6{background: linear-gradient(to right, #FFEB3B 0%, #FFF176 100%);}
+                .background-7{background: linear-gradient(to right, #c471ed 0%, #f64f59 100%);}
+                .background-8{background: linear-gradient(to right, #ef32d9 0%, #89fffd 100%);}
+                .background-9{background: linear-gradient(to right, #a8ff78 0%, #78ffd6 100%);}
+                .background-10{background: linear-gradient(to right, #12c2e9 0%, #c471ed 100%);}
+            </style>
+
+                <div class="my-skills">
+                    <div class="title center-align" data-aos="zoom-in-up">
+                        <i class="fas fa-wrench"></i>&nbsp;&nbsp;{{about.skill_title}}
+                    </div>
+                    <div class="row">
+                        {% for s in skill %}
+                        <div class="col s12 m6 l6" data-aos="fade-up">
+                            <div class="skillbar">
+                                <div class="skillbar-title background-{% random_num %}"
+                                     style=" width: {{ s.skill_precent }}">
+                                    <span>{{s.skill_name}}</span>
+                                </div>
+                                <div class="skill-bar-percent">{{ s.skill_precent }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock  %}

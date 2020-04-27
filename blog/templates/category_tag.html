@@ -1,0 +1,171 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load custom_tag %}
+{% block title %}归类 | {% endblock %}
+{% block banner%}
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+        {% include 'layout/banner.html' %}
+    </div>
+</div>
+{% endblock %}
+{% block css%}
+        <style>
+        .category_tag-1{
+            background-color: #F9EBEA;
+        }
+
+        .category_tag-2{
+            background-color: #F5EEF8;
+        }
+
+        .category_tag-3{
+            background-color: #D5F5E3;
+        }
+
+        .category_tag-4{
+            background-color: #E8F8F5;
+        }
+        .category_tag-5{
+            background-color: #ddf9e7;
+        }
+
+        .category_tag-6{
+            background-color: #d2d6f8;
+        }
+
+        .category_tag-7{
+            background-color: #f5deba;
+        }
+
+        .category_tag-8{
+            background-color: #f8f6c8;
+        }
+
+        .category_tag-9{
+            background-color: #d8f5c1;
+        }
+
+        .category_tag-10{
+            background-color: #def8f8;
+        }
+
+    </style>
+{% endblock %}
+{% block contents%}
+
+<main class="content"><!--文章分类-->
+<div id="category-cloud" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
+            </div>
+            <div class="tag-chips">
+                {% for category in categories %}
+                <a href="{% url 'article_category' category.id %}" title="Python: 4">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default category_tag-{% random_num %}">{{category.name}}
+                        <span class="tag-length">{{category.get_items}}</span>
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #category-radar {
+        width: 100%;
+        height: 360px;
+    }
+</style>
+
+<div class="container" data-aos="fade-up">
+    <div class="card">
+        <div id="category-radar" class="card-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+<script type="text/javascript">
+    let radarChart = echarts.init(document.getElementById('category-radar'));
+    let option = {
+        title: {
+            left: 'center',
+            text: '文章分类雷达图',
+            textStyle: {
+                fontWeight: 500,
+                fontSize: 22
+            }
+        },
+        tooltip: {},
+        radar: {
+            name: {
+                textStyle: {
+                    color: '#3C4858'
+                }
+            },
+            indicator: [{% for category in categories %}{"name":"{{category.name}}","max":20},{% endfor %}],
+            nameGap: 5,
+            center: ['50%','55%'],
+            radius: '66%'
+        },
+        series: [{
+            type: 'radar',
+            color: ['#3ecf8e'],
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data : [
+                {
+                    value : [4,7,2,6,7,2],
+                    name : '文章分类数量'
+                }
+            ]
+        }]
+    };
+    radarChart.setOption(option);
+</script>
+
+<!--文章标签-->
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+            </div>
+            <div class="tag-chips">
+                {% for tag in tags %}
+                <a href="{% url 'article_tag' tag.id %}" title="{{tag.name}}: {{tag.get_items}}">
+                    <span class="chip center-align waves-effect waves-lightchip-default category_tag-{% random_num %}"
+                          data-tagname="{{tag.name}}" ">{{tag.name}}
+                        <span class="tag-length">{{tag.get_items}}</span>
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="{% static 'plugin/jqcloud/jqcloud.css' %}">
+<style type="text/css">
+    #tag-wordcloud {
+        width: 100%;
+        height: 300px;
+    }
+</style>
+
+<div class="container" data-aos="fade-up">
+    <div class="card">
+        <div id="tag-wordcloud" class="card-content"></div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'plugin/jqcloud/jqcloud-1.0.4.min.js' %}"></script>
+<script type="text/javascript">
+    $('#tag-wordcloud').jQCloud([{"text":"Django","weight":1,"link":"https://jwt1399.top/tags/Django/"},{"text":"CSS","weight":1,"link":"https://jwt1399.top/tags/CSS/"},{"text":"filter滤镜","weight":1,"link":"https://jwt1399.top/tags/filter滤镜/"},{"text":"docker","weight":1,"link":"https://jwt1399.top/tags/docker/"},{"text":"Kali","weight":1,"link":"https://jwt1399.top/tags/Kali/"},{"text":"网络攻防","weight":0,"link":"https://jwt1399.top/tags/网络攻防/"},{"text":"Python虚拟环境","weight":1,"link":"https://jwt1399.top/tags/Python虚拟环境/"},{"text":"RSA工具","weight":1,"link":"https://jwt1399.top/tags/RSA工具/"},{"text":"文件包含","weight":1,"link":"https://jwt1399.top/tags/文件包含/"},{"text":"Write-up","weight":4,"link":"https://jwt1399.top/tags/Write-up/"},{"text":"漏洞挖掘","weight":1,"link":"https://jwt1399.top/tags/漏洞挖掘/"},{"text":"Android","weight":1,"link":"https://jwt1399.top/tags/Android/"},{"text":"FTP服务器","weight":1,"link":"https://jwt1399.top/tags/FTP服务器/"},{"text":"Crypto","weight":2,"link":"https://jwt1399.top/tags/Crypto/"},{"text":"Web服务器","weight":1,"link":"https://jwt1399.top/tags/Web服务器/"},{"text":"渗透测试","weight":1,"link":"https://jwt1399.top/tags/渗透测试/"},{"text":"流量分析","weight":1,"link":"https://jwt1399.top/tags/流量分析/"},{"text":"Requests","weight":1,"link":"https://jwt1399.top/tags/Requests/"},{"text":"操作系统","weight":1,"link":"https://jwt1399.top/tags/操作系统/"},{"text":"网络协议分析","weight":1,"link":"https://jwt1399.top/tags/网络协议分析/"},{"text":"C和C++","weight":1,"link":"https://jwt1399.top/tags/C和C/"},{"text":"文件上传","weight":1,"link":"https://jwt1399.top/tags/文件上传/"},{"text":"网络安全技术","weight":1,"link":"https://jwt1399.top/tags/网络安全技术/"},{"text":"Linux","weight":1,"link":"https://jwt1399.top/tags/Linux/"},{"text":"爬虫","weight":1,"link":"https://jwt1399.top/tags/爬虫/"},{"text":"DVWA","weight":1,"link":"https://jwt1399.top/tags/DVWA/"},{"text":"Web基础漏洞","weight":1,"link":"https://jwt1399.top/tags/Web基础漏洞/"},{"text":"前端","weight":1,"link":"https://jwt1399.top/tags/前端/"}], {
+        autoResize: true
+    });
+</script>
+</main>
+{% endblock %}

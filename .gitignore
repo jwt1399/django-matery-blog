@@ -1,0 +1,14 @@
+#pycharm
+.idea/
+.DS_Store
+
+_pycache_/
+*.py[cod]
+*$py.class
+
+#Django stuff
+*.sqlite3
+
+# database migrations
+*/migrations/*.py
+!*/migrations/_init_.py

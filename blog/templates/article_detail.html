@@ -1,0 +1,459 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load custom_tag %}
+{% block title %}{{ article.title }} | {% endblock %}
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/prism-tomorrow.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/prism-line-numbers.css' %}" type="text/css">
+{% endblock %}
+{% block banner %}
+    <div class="bg-cover pd-header post-cover">
+        <div class="container" style="right: 0px;left: 0px;">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="brand">
+                        <h1 class="description center-align post-title">{{ article.title }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $('.bg-cover').css('background-image', 'url(http://119.23.243.154/image/Covteam-hack.jpg)');
+</script>
+{% endblock %}
+
+{% block contents %}
+<main class="post-container content">
+<link rel="stylesheet" href="{% static 'css/tocbot.css' %}">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+    <div class="row">
+        <div id="main-content" class="col s12 m12 l9">
+            <!-- 文章信息-->
+            <div id="artDetail">
+                <div class="card">
+                    <div class="card-content article-info">
+                        <div class="row tag-cate">
+                            <div class="col s7">
+                                <div class="article-tag">
+                                    {% for tag in article.tag.all %}
+                                        <a href="{% url 'article_tag' tag.id %}">
+                                            <span class="chip bg-color">{{ tag.name }}</span>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col s5 right-align">
+                                <div class="post-cate">
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    <a href="{% url 'article_category' article.category_id %}" class="post-category">{{ article.category }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-info">
+                            <div class="post-date info-break-policy">
+                                <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;{{ article.add_time }}
+                            </div>
+                            <div class="post-date info-break-policy">
+                                <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;{{ article.update_time }}
+                            </div>
+                            <div id="busuanzi_container_page_pv" class="info-break-policy">
+                                <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;{{ article.click_count }}
+                                {#                            <span id="busuanzi_value_page_pv"></span>#}
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="clearfix">
+                    <!--文章内容-->
+                    <div class="card-content article-card-content">
+                        <div id="articleContent">
+                            {{ article_detail_html|custom_markdown| safe }}
+                        </div>
+                        <hr/>
+
+                        <!--版权信息-->
+                        <div class="reprint" id="reprint-statement">
+                            <div class="reprint__author">
+            <span class="reprint-meta" style="font-weight: bold;">
+                <i class="fas fa-user">
+                    文章作者:
+                </i>
+            </span>
+                                    <span class="reprint-info">
+                <a href="https://jwt1399.top" rel="external nofollow noreferrer">{{ article.author }}</a>
+            </span>
+                                </div>
+                                <div class="reprint__type">
+            <span class="reprint-meta" style="font-weight: bold;">
+                <i class="fas fa-link">
+                    文章链接:
+                </i>
+            </span>
+                                    <span class="reprint-info">
+                <a href="{% url 'article_detail' article.id %}">{% url 'article_detail' article.id %}</a>
+            </span>
+                                </div>
+                                <div class="reprint__notice">
+            <span class="reprint-meta" style="font-weight: bold;">
+                <i class="fas fa-copyright">
+                    版权声明:
+                </i>
+            </span>
+            <span class="reprint-info">
+                本博客所有文章除特別声明外，均采用
+                <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer"
+                   target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                <a href="/" target="_blank">{{SITE_NAME}}</a>!
+            </span>
+        </div>
+    </div>
+
+     <!--复制弹出转载规则-->
+    <script async defer>
+        document.addEventListener("copy", function (e) {
+            let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+            M.toast({html: toastHTML})
+        });
+        function navToReprintStatement() {
+            $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+        }
+    </script>
+
+    <div class="tag_share" style="display: block;">
+        <div class="post-meta__tag-list" style="display: inline-block;">
+            <div class="article-tag">
+                {% for tag in article.tag.all %}
+                <a href="{% url 'article_tag' tag.id %}">
+                    <span class="chip bg-color">{{tag}}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+    <!--分享功能-->
+
+        <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+            <link rel="stylesheet" href="{% static 'plugin/share/css/share.min.css' %}" type="text/css">
+            <div id="article-share">
+                <div class="social-share" data-sites="qq,qzone,wechat,weibo"
+                     data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+                 <script src="{% static 'plugin/share/js/social-share.min.js' %}"></script>
+            </div>
+        </div>
+    </div>
+
+
+<link rel="stylesheet" href="{% static 'css/reward.css' %}" type="text/css">
+<!--打赏功能-->
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">你</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">的</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">打</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">是</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">我</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">们</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">前</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">进</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">的</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">动</a>
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">力</a>
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://jwt1399.top/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://jwt1399.top/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+</div>
+    </div>
+<!--valine评论-->
+<link rel="stylesheet" href="{% static 'plugin/valine/valine.css' %}" type="text/css">
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论-----昵称和邮箱必填，网址选填</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid"></div>
+</div>
+<script src="{% static 'plugin/valine/av-min.js' %}"></script>
+<script src="{% static 'plugin/valine/Valine.min.js' %}"></script>
+
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '{{valine.appid}}',
+        appKey: '{{valine.appkey}}',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '{{ valine.avatar }}',
+        pageSize: '{{valine.pagesize}}',
+        lang: 'zh-cn',
+        placeholder: '{{ valine.placeholder }}'
+    });
+</script>
+
+</div>
+        
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('100')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: {{ SITE_NAME }}<br />'
+            + '文章作者: {{article.author}}<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="{% static 'plugin/codeBlock/codeBlockFuction.js' %}"></script>
+<!-- 代码语言 -->
+ <script type="text/javascript" src="{% static 'plugin/codeBlock/codeLang.js' %}"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="{% static 'plugin/codeBlock/codeCopy.js' %}"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="{% static 'plugin/codeBlock/codeShrink.js' %}"></script>
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+ </div>
+
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- TOC 悬浮按钮. -->
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+<script src="{% static 'js/tocbot.min.js' %}"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+
+    });
+</script>
+
+</main>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

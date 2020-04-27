@@ -1,0 +1,146 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block banner %}
+    <div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
+        <div class="carousel-item red white-text bg-cover about-cover">
+            <div class="container">
+                {% include 'layout/banner.html' %}
+                <div class="cover-btns">
+                    <a href="#indexCard" class="waves-effect waves-light btn">
+                        <i class="fa fa-angle-double-down"></i>开始阅读
+                    </a>
+                </div>
+                <div class="cover-social-link">
+                     {% for a in social %}
+                    <a href="{{ a.social_url }}" class="tooltipped" target="_blank"
+                       data-tooltip="{{a.social_des}}:{{ a.social_url }}" data-position="top" data-delay="50">
+                        <i class="{{ a.social_icon }}"></i>
+                    </a>
+                     {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block contents %}
+<main class="content">
+    <div id="indexCard" class="index-card">
+        <div class="container ">
+            <div class="card">
+                <div class="card-content">
+{#                    <link rel="stylesheet" href="{% static 'css/APlayer.min.css' %}">#}
+{#                    <div class="music-player">#}
+{#                        <div class="row">#}
+{#                            <div class="col l8 offset-l2 m10 offset-m1 s12">#}
+{#                                <div id="aplayer" class="music"></div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <script src="{% static 'js/APlayer.min.js' %}"></script>#}
+{#                    <script>#}
+{#                        $(function () {#}
+{#                            new APlayer({#}
+{#                                container: document.getElementById('aplayer'),#}
+{#                                fixed: 'false' === 'true',#}
+{#                                autoplay: 'true' === 'true',#}
+{#                                theme: '#42b983',#}
+{#                                loop: 'all',#}
+{#                                order: 'list',#}
+{#                                preload: 'auto',#}
+{#                                volume: Number('0.2'),#}
+{#                                listFolded: 'false' === 'true',#}
+{#                                listMaxHeight: '',#}
+{#                                audio: eval([{#}
+{#                                    "name": "我只在乎你",#}
+{#                                    "artist": "邓丽君",#}
+{#                                    "url": "https://music.163.com/song/media/outer/url?id=229010.mp3",#}
+{#                                    "cover": "https://i.loli.net/2020/03/17/3mFfpKMikuPzAjx.jpg"#}
+{#                                }])#}
+{#                            });#}
+{#                        });#}
+{#                    </script>#}
+                    {% for notice in notices  %}
+                    <div class="dream">
+                        <div class="title center-align">
+                            <i class="{{notice.icon}}"></i>&nbsp;&nbsp;{{ notice.title }}
+                        </div>
+                        <div class="row">
+                            <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">
+                               {{ notice.content }}
+                             </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!--推荐文章-->
+                    <div id="recommend-sections" class="recommend">
+                        <div class="title"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;推荐文章</div>
+                        <div class="row">
+                            {% for top_article in top_articles %}
+                                <div class="col s12 m6">
+                                    <div class="post-card"
+                                         style="background-image: url('{{ top_article.cover }}')">
+                                        <div class="post-body">
+                                            <div class="post-categories">
+                                                <a href="{% url 'article_category' top_article.category_id %}"
+                                                   class="category">{{ top_article.category }}</a>
+                                            </div>
+                                            <a href="{% url 'article_detail' top_article.id %}">
+                                                <h3 class="post-title">{{ top_article.title }}</h3>
+                                            </a>
+                                            <p class="post-description">
+                                                {{ top_article.desc }}
+                                            </p>
+                                            <a href="{% url 'article_detail' top_article.id %}" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)" target="_blank">
+                                                <i class="icon far fa-eye fa-fw"></i>阅读更多
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+    <!--所有文章-->
+    <article id="articles" class="container articles">
+        <div class="row article-row">
+            {% for article in all_articles %}
+                <div class="article col s12 m6 l4" data-aos="zoom-in">
+                    <div class="card">
+                        <a href="{% url 'article_detail' article.id %}">
+                            <div class="card-image">
+                                <img src="{{ article.cover }}" alt="{{ article.title }}">
+                                <span class="card-title">{{ article.title }}</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="summary block-with-text">
+                                {{ article.desc }}
+                            </div>
+                            <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>{{ article.add_time | date:"Y-m-d" }}
+                            </span>
+                                <span class="publish-author">
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                <a href="{% url 'article_category' article.category_id %}" class="post-category">{{ article.category }}</a>
+                            </span>
+                            </div>
+                        </div>
+                        <div class="card-action article-tags">
+                            {% for tag in article.tag.all %}
+                                <a href="{% url 'article_tag' tag.id %}">
+                                    <span class="chip bg-color">{{ tag.name }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </article>
+{% endblock %}
+
+{% block js %}{% endblock %}

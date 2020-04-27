@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="{{ KEYWORDS }}">
+    <meta name="description" content="{{DESC}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>{% block title %}{% endblock %}{{ SITE_NAME }}</title>
+    <link rel="icon" type="image/png" href="{{ LOGO }}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/materialize.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/aos.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/animate.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/lightgallery.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/matery.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/my.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+<!--导航栏-->
+{% include 'layout/header.html' %}
+
+<style>
+    .carousel-control {
+        width: 45px;
+        height: 45px;
+        line-height: 55px;
+        border-radius: 45px;
+        background: transparent;
+        cursor: pointer;
+        z-index: 100;
+    }
+
+    #prev-cover {
+        position: absolute;
+        top: 48%;
+        left: 8px;
+    }
+
+    #next-cover {
+        position: absolute;
+        top: 48%;
+        right: 8px;;
+    }
+
+    #prev-cover i {
+        margin-right: 3px;
+    }
+
+    #next-cover i {
+        margin-left: 3px;
+    }
+
+    .carousel-control:hover {
+        background-color: rgba(0, 0, 0, .4);
+    }
+
+    .carousel-control i {
+        color: #fff;
+        font-size: 2.4rem;
+    }
+</style>
+
+{% block banner %}{% endblock %}
+<script>
+    $(function () {
+        let coverSlider = $('.carousel');
+        coverSlider.carousel({
+            duration: Number('120'),
+            fullWidth: true,
+            indicators: 'false' === 'true'
+        });
+        let carouselIntervalId;
+        let restartPlay = function () {
+        };
+    });
+</script>
+{% block contents %}{% endblock %}
+
+<!-- 页脚 -->
+{% include 'layout/footer.html' %}
+
+<!-- 滚动进度条 -->
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="{% static 'js/search.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+        searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+    });
+</script>
+
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+<script src="{% static 'js/materialize.min.js' %}"></script>
+<script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/scrollProgress.min.js' %}"></script>
+<script src="{% static 'js/lightgallery-all.min.js' %}"></script>
+<script src="{% static 'js/matery.js' %}"></script>
+<script src="{% static 'js/clicklove.js' %}" async="async"></script>
+<script async src="{% static 'js/busuanzi.pure.mini.js' %}"></script>
+<script src="{% static 'js/instantpage.js' %}" type="module"></script>
+<script src="{% static 'js/prism.js' %}"></script>
+<!--背景特效-->
+<script type="text/javascript" color="0,0,255" pointColor="0,0,255" opacity='0.7' zIndex="-1" count="99" src="{% static 'js/canvas-nest.js' %}"></script>
+<script type="text/javascript" size="150" alpha='0.6' zIndex="-1" src="{% static 'js/ribbon.min.js' %}" async="async"></script>
+<script type="text/javascript" src="{% static 'js/ribbon-dynamic.js' %}" async="async"></script>
+{% block js %}{% endblock %}
+</body>
+</html>
+
+

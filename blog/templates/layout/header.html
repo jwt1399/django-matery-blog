@@ -1,0 +1,144 @@
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    <img src="{{ LOGO }}" class="logo-img" alt="LOGO">
+                    <span class="logo-span">{{ SITE_NAME }}</span>
+                </a>
+            </div>
+            <!--pc导航栏-->
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+            <ul class="right nav-menu">
+                <li class="hide-on-med-and-down nav-item">
+                    <a href="/" class="waves-effect waves-light">
+                        <i class="fas fa-home" style="zoom: 0.6;"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="hide-on-med-and-down nav-item">
+                    <a href="http://119.23.243.154/" class="waves-effect waves-light">
+                        <i class="fas fa-dragon" style="zoom: 0.6;"></i>
+                        <span>官网</span>
+                    </a>
+                </li>
+                <li class="hide-on-med-and-down nav-item">
+                    <a href="{% url 'member' %}" class="waves-effect waves-light">
+                        <i class="fas fa-venus-mars" style="zoom: 0.6;"></i>
+                        <span>成员</span>
+                    </a>
+                </li>
+
+                {% for category in category_nav  %}
+                <li class="hide-on-med-and-down nav-item">
+                    <a href="{% url 'article_category' category.id %}" class="waves-effect waves-light">
+                        <i class="{{ category.icon }}" style="zoom: 0.6;"></i>
+                        <span>{{ category.name }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+
+                <li class="hide-on-med-and-down nav-item">
+                    <a href="" class="waves-effect waves-light">
+                        <i class="fas fa-list" style="zoom: 0.6;"></i>
+                        <span>整理</span>
+                        <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+                    </a>
+                    <ul class="sub-nav menus_item_child ">
+                        <li>
+                            <a href="{% url 'category_tag' %}">
+                                <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+                                <span>归类</span>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a href="../article_tag/1">
+                                <i class="fas fa-file-contract" style="margin-top: -20px; zoom: 0.6;"></i>
+                                <span>归档</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="hide-on-med-and-down nav-item">
+                    <a href="{% url 'about' %}" class="waves-effect waves-light">
+                        <i class="fas fa-id-card-alt" style="zoom: 0.6;"></i>
+                        <span>关于</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+                        <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- 手机菜单栏 -->
+            <div id="mobile-nav" class="side-nav sidenav">
+                <div class="mobile-head bg-color">
+                    <img src="https://i.loli.net/2020/03/18/31icejuN6KgfzOb.png" class="logo-img circle responsive-img">
+                    <div class="logo-name">CovTeam</div>
+                    <div class="logo-desc">
+                        西华大学网安实验室
+                    </div>
+                </div>
+                <ul class="menu-list mobile-menu-list">
+                    <li class="m-nav-item">
+                        <a href="/" class="waves-effect waves-light">
+                            <i class="fa-fw fas fa-home"></i>
+                            首页
+                        </a>
+                    </li>
+                    <li class="m-nav-item">
+                        <a href="http://119.23.243.154/">
+                            <i class="fa-fw fas fa-gamepad"></i>
+                            官网
+                        </a>
+                    </li>
+                    <li class="m-nav-item">
+                        <a href="{% url 'member' %}" class="waves-effect waves-light">
+                            <i class="fa-fw fas fa-venus-mars"></i>
+                            成员
+                        </a>
+                    </li>
+                    {% for category in category_nav %}
+                    <li class="hide-on-med-and-down nav-item">
+                        <a href="{% url 'article_category' category.id %}" class="waves-effect waves-light">
+                            <i class="{{ category.icon }}" style="zoom: 0.6;"></i>
+                            <span>{{ category.name }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                    <li class="m-nav-item">
+                        <a href="javascript:;">
+                            <i class="fa-fw fas fa-list"></i>
+                            整理
+                            <span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <ul style="background:  ;">
+                            <li>
+                                <a href="/tags " style="margin-left:50px" ;>
+                                    <i class="fa fas fa-bookmark" style="position: absolute;left:28px"></i>
+                                    <span>归类</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/archives " style="margin-left:50px" ;>
+                                    <i class="fa fas fa-file-contract" style="position: absolute;left:28px"></i>
+                                    <span>归档</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="m-nav-item">
+                        <a href="/about" class="waves-effect waves-light">
+                            <i class="fa-fw fas fa-id-card-alt"></i>
+                            关于
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
