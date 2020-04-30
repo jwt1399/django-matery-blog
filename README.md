@@ -11,7 +11,7 @@ Python：python3.7
 
 👇 👇 👇 👇 👇 👇 👇 👇 
 
-👇 部署方法在文章最后 👇
+👇 [部署方法在文章最后](https://github.com/jwt1399/Django_Blog/blob/master/README.md#%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95--) 👇
 
 👇 👇 👇 👇 👇 👇 👇 👇
 
