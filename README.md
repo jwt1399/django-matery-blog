@@ -8,6 +8,16 @@ Django：[Django 3.0.5](https://www.djangoproject.com/)
 
 Python：python3.7
 
+
+👇 👇 👇 👇 👇 👇 👇 👇 
+
+👇 部署方法在文章最后 👇
+
+👇 👇 👇 👇 👇 👇 👇 👇
+
+ 
+
+
 ## 前端页面展示
 
 ### 首页
