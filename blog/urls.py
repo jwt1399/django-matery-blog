@@ -12,7 +12,7 @@ urlpatterns = [
     #分类和标签页
     path('category_tag/',views.category_tag,name='category_tag'),
     #文章分类详情页
-    path('article_category/<int:id>',views.article_category,name='article_category'),
+    path('article_category/(?P<id>[0-9]+)$',views.article_category,name='article_category'),
     #文章标签详情页
     path('article_tag/<int:id>',views.article_tag,name='article_tag'),
     #关于

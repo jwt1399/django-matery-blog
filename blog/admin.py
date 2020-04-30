@@ -9,6 +9,7 @@ from django.db import models
 admin.site.site_header = 'Covteam后台'
 admin.site.site_title = 'CovTeam | 后台'
 
+
 #文章
 @admin.register(Article)
 class ArticleAdmin(ImportExportModelAdmin):
@@ -66,7 +67,7 @@ class NoticeAdmin(admin.ModelAdmin):
     list_editable = ['icon']
 #网站设置
 @admin.register(Site)
-class SiteAdmin(admin.ModelAdmin):
+class SiteAdmin(ImportExportModelAdmin):
     list_display = ['site_name','logo_preview','keywords','desc','slogan','dynamic_slogan','bgcover_preview','icp_number','icp_url']
 from django.forms import PasswordInput
 #valine评论

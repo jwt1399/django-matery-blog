@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!bvt-!&^zj-xqpdu$9xu#8*^fximunwhv@!4z1pd6+l-e381!#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,22 +79,25 @@ WSGI_APPLICATION = 'Django_Blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_blog',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+#DATABASES = {
+#   'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'django_blog',
+#        'USER': 'root',
+#        'PASSWORD': 'root',
+#        'HOST': 'db',
+#        'PORT': '3306',
+#        'OPTIONS': {'charset': 'utf8mb4'},
+#    }
+#}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -120,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'Asia/shanghai'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -134,10 +137,10 @@ DATETIME_FORMAT = 'Y-m-d'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "bolg/static")
+#]
 
 
 #SimpleUi后台设置
@@ -218,7 +221,7 @@ SIMPLEUI_CONFIG = {
         'icon': 'fas fa-paper-plane',
         'models': [{
             'name': 'CovTeam',
-            'url': 'http://127.0.0.1:8034/',
+            'url': 'http://covteam.jwt1399.top/',
             'icon': 'fab fa-wolf-pack-battalion'
         }, {
             'name': '简简',

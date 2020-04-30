@@ -3,7 +3,7 @@ from datetime import datetime
 from django.utils.html import format_html
 from mdeditor.fields import MDTextField
 class Category(models.Model):
-    """文章分类"""
+    '''文章分类'''
     name = models.CharField(max_length=20, verbose_name='分类名称')
     index = models.IntegerField(default=1, verbose_name='分类排序')
     add_menu = models.BooleanField(default=False, verbose_name='添加到导航栏')
@@ -37,9 +37,9 @@ class Tag(models.Model):
         return self.name
 
 class Article(models.Model):
-    """文章"""
+    '''文章'''
     title = models.CharField(max_length=50, verbose_name='文章标题')
-    author = models.CharField(max_length=10, verbose_name='作者',default='简文涛')
+    author = models.CharField(max_length=10, verbose_name='作者',default='简文涛',blank=True,null=True)
     desc = models.CharField(max_length=50, verbose_name='文章描述')
     cover = models.URLField(max_length=200, default='https://i.loli.net/2020/04/23/lJLjEtbs2NFwynQ.jpg', verbose_name='文章封面')
     content = MDTextField(verbose_name='文章内容')
@@ -138,7 +138,7 @@ class Skill(models.Model):
 
 class Site(models.Model):
     """站点配置"""
-    site_name = models.CharField(max_length=30,verbose_name='网站名字')
+    site_name = models.CharField(default='简简',max_length=30,verbose_name='网站名字')
     keywords = models.CharField(default='关键字测试',max_length=50, verbose_name='网站关键词')
     logo = models.URLField(default='https://jwt1399.top/favicon.png',max_length=100, verbose_name='网站logo')
     desc = models.CharField(max_length=50, verbose_name='网站描述')

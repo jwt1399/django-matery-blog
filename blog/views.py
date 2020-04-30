@@ -123,5 +123,4 @@ def global_params(request):
         'ICP_NUMBER': icp_number,
         'ICP_URL': icp_url,
         'social': social,
-
     }
