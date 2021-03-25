@@ -13,7 +13,7 @@ odfpy==1.4.1
 openpyxl==3.0.3
 PyMySQL==0.9.3
 pytz==2019.3
-PyYAML==5.3.1
+PyYAML==5.4
 sqlparse==0.3.1
 tablib==1.1.0
 xlrd==1.2.0
