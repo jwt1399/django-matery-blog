@@ -148,7 +148,9 @@ $ git clone https://github.com/jwt1399/Django_Blog.git
 $ docker-compose up #构建镜像并启动容器
 ```
 后台默认账户/密码
+
 账户：jwt1399
+
 密码：pyj199681..
 
 ## 赞助💰
