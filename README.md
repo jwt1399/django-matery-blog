@@ -1,23 +1,31 @@
-## 基于Django+Simpleui的博客系统
+<h1 align="center"> 基于Django+Simpleui+Matery的博客系统</h1>
+
+<p align="center">
+	<a href="https://github.com/jwt1399/Django-Blog"><img alt="Django-Blog" src="https://img.shields.io/github/stars/jwt1399/Django-Blog.svg"></a>
+	<a href="https://github.com/jwt1399/Django-Blog"><img alt="Django-Blog" src="https://img.shields.io/github/forks/jwt1399/Django-Blog.svg"></a>
+</p>
+<p align="center"><span>如果你觉得本项目还不错的话，请给一个❤️Star & Fork❤️吧，感谢感谢🤝</span></p>
+
+
+
+##  相关技术
+
 
 前端：[hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery)，就是我[博客](https://jwt1399.top)的hexo主题
 
 后台：[SimpleUi](https://simpleui.88cto.com/simpleui)
 
-Django：[Django 3.0.5](https://www.djangoproject.com/)       
+Django：[Django 3.0.5](https://www.djangoproject.com/)   
 
-Python：python3.7
+数据库：Django自带的SQLite,可自行更改为其他数据库
 
+Python：Python3.7
 
-👇 👇 👇 👇 👇 👇 👇 👇 
 
 👇 [部署方法在文章最后](https://github.com/jwt1399/Django_Blog/blob/master/README.md#%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95--) 👇
 
-👇 👇 👇 👇 👇 👇 👇 👇
 
  
-
-
 ## 前端页面展示
 
 ### 首页
