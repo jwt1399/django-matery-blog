@@ -8,7 +8,7 @@ django-simpleui==3.9.1
 et-xmlfile==1.0.1
 jdcal==1.4.1
 MarkupPy==1.14
-mistune==0.8.4
+mistune==2.0.3
 odfpy==1.4.1
 openpyxl==3.0.3
 PyMySQL==0.9.3
